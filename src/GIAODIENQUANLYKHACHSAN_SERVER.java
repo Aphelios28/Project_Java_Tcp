@@ -202,8 +202,18 @@ public class GIAODIENQUANLYKHACHSAN_SERVER extends javax.swing.JFrame {
         });
 
         btSua.setText("Sửa");
+        btSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSuaActionPerformed(evt);
+            }
+        });
 
         btXoa.setText("Xóa");
+        btXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaActionPerformed(evt);
+            }
+        });
 
         btTim.setText("Tìm");
 
@@ -271,7 +281,7 @@ public class GIAODIENQUANLYKHACHSAN_SERVER extends javax.swing.JFrame {
             // TODO add your handling code here:
             int port = 12345;
             server.ConnectServer(port);
-            server.Connect_to_client();
+           
             JOptionPane.showMessageDialog(null, "Đã kết nối thành công");
             btKetNoiClient.setEnabled(false);
             btHuyKetNoi.setEnabled(true);
@@ -347,6 +357,25 @@ public class GIAODIENQUANLYKHACHSAN_SERVER extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btHuyKetNoiActionPerformed
+
+    private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
+        // TODO add your handling code here:
+        try{
+            String maPhongCanXoa = server.input_from_client();
+            if (ds.xoaTheoMaPhong(maPhongCanXoa)){
+                JOptionPane.showMessageDialog(null, "Xóa thành công");
+            } else {
+                JOptionPane.showMessageDialog(null, "Xóa không thành công");
+            }
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btXoaActionPerformed
+
+    private void btSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaActionPerformed
+        // TODO add your handling code here:
+        String input = 
+    }//GEN-LAST:event_btSuaActionPerformed
 
     /**
      * @param args the command line arguments

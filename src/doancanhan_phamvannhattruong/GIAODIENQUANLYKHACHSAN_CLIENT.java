@@ -382,7 +382,6 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(GIAODIENQUANLYKHACHSAN_CLIENT.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_btSuaActionPerformed
 
     private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed

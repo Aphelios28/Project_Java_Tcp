@@ -22,10 +22,11 @@ public class TCPSERVER {
     DANHSACHPHONG dsp = new DANHSACHPHONG();
     public void ConnectServer(int port) throws IOException{
         serverSocket = new ServerSocket(port);
+        socket = serverSocket.accept();
     }
     public void Connect_to_client() throws IOException{
         
-        socket = serverSocket.accept();
+        
     }
     public void Close() throws IOException{
         if (socket != null){
