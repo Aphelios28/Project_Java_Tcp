@@ -22,11 +22,12 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
     DefaultTableModel model;
     DANHSACHPHONG ds;
     TCPCLIENT client = new TCPCLIENT();
+
     public GIAODIENQUANLYKHACHSAN_CLIENT() {
         initComponents();
         mYInit();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,9 +60,6 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
         btTim = new javax.swing.JButton();
         btInDs = new javax.swing.JButton();
         btKetnoi = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         btHuyKetNoi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -176,12 +174,27 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
         });
 
         btSua.setText("Sửa");
+        btSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSuaActionPerformed(evt);
+            }
+        });
 
         btXoa.setText("Xóa");
+        btXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaActionPerformed(evt);
+            }
+        });
 
         btTim.setText("Tìm");
+        btTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTimActionPerformed(evt);
+            }
+        });
 
-        btInDs.setText("Thoát");
+        btInDs.setText("In danh sách ");
         btInDs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btInDsActionPerformed(evt);
@@ -194,17 +207,6 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
                 btKetnoiActionPerformed(evt);
             }
         });
-
-        jButton1.setText("jButton1");
-
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("jButton3");
 
         btHuyKetNoi.setText("Hủy kết nối đến server");
         btHuyKetNoi.setActionCommand("");
@@ -221,39 +223,31 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(343, 343, 343)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btKetnoi)
-                                .addGap(24, 24, 24)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
                                 .addComponent(btHuyKetNoi)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                                .addGap(54, 54, 54)
                                 .addComponent(btThem)
-                                .addGap(28, 28, 28)
+                                .addGap(54, 54, 54)
                                 .addComponent(btSua)
-                                .addGap(58, 58, 58)
+                                .addGap(66, 66, 66)
                                 .addComponent(btXoa)
-                                .addGap(47, 47, 47)
+                                .addGap(53, 53, 53)
                                 .addComponent(btTim)
-                                .addGap(52, 52, 52)
-                                .addComponent(btInDs))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(343, 343, 343)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
-                                    .addComponent(jButton2)
-                                    .addComponent(jButton3))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(40, 40, 40)
+                                .addComponent(btInDs))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(23, 51, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -262,91 +256,158 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btThem)
-                            .addComponent(btSua)
-                            .addComponent(btXoa)
-                            .addComponent(btTim)
-                            .addComponent(btInDs)
-                            .addComponent(btKetnoi)
-                            .addComponent(btHuyKetNoi))
-                        .addGap(27, 27, 27))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btThem)
+                    .addComponent(btSua)
+                    .addComponent(btXoa)
+                    .addComponent(btTim)
+                    .addComponent(btInDs)
+                    .addComponent(btKetnoi)
+                    .addComponent(btHuyKetNoi))
+                .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void mYInit(){
+    public void mYInit() {
         model = (DefaultTableModel) tbDanhSachPhong.getModel();
         //tbDanhSachPhong.setModel(model);
         ds = new DANHSACHPHONG();
         docFile();
-        
+
     }
-    public void docFile(){
+
+    public void docFile() {
         ds.docFile("DanhSachPhong.txt");
-        for (PHONG phong : ds.dsp){
+        for (PHONG phong : ds.dsp) {
             Them1DongVaoTable(phong);
         }
     }
-    public void XoaBang(){
-        for (int i = tbDanhSachPhong.getRowCount(); i > 0; i--){
+
+    public void XoaBang() {
+        for (int i = tbDanhSachPhong.getRowCount(); i > 0; i--) {
             model.removeRow(i - 1);
         }
     }
-    public void Them1DongVaoTable(PHONG p){
+
+    public void Them1DongVaoTable(PHONG p) {
         model.addRow(new Object[]{p.getMaPhong(), p.getTenKhachHang(), p.getSoLuongKhach(), p.getNgayNhanPhong(), p.getLoaiPhong(), p.getThoiGianOLaiDuKien()});
-        
+
+    }
+
+    public void clearTextArea() {
+        txtMaPhong.setText("");
+        txtTenKhachHang.setText("");
+        txtSoLuongKhach.setText("");
+        txtNgayNhanPhong.setText("");
+        txtLoaiPhong.setText("");
+        txtThoiGianOLai.setText("");
     }
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
-        
+        String maPhong = txtMaPhong.getText();
+        String tenKhachHang = txtTenKhachHang.getText();
+        String soLuongKhach = txtSoLuongKhach.getText();
+        String ngayNhanPhong = txtNgayNhanPhong.getText();
+        String loaiPhong = txtLoaiPhong.getText();
+        String thoiGianOLai = txtThoiGianOLai.getText();
+        String output = maPhong + " " + tenKhachHang + " " + soLuongKhach + " " + ngayNhanPhong + " " + loaiPhong + " " + thoiGianOLai;
+        clearTextArea();
+        String input;
+        try {
+            client.Output_to_server(output);
+            String reply = client.input_from_server();
+            JOptionPane.showMessageDialog(null, reply);
+
+        } catch (IOException ex) {
+            Logger.getLogger(GIAODIENQUANLYKHACHSAN_CLIENT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btThemActionPerformed
 
     private void btInDsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInDsActionPerformed
         // TODO add your handling code here:
         XoaBang();
-        for (PHONG phong : ds.dsp){
+        for (PHONG phong : ds.dsp) {
             Them1DongVaoTable(phong);
         }
-        
+
     }//GEN-LAST:event_btInDsActionPerformed
 
     private void btKetnoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btKetnoiActionPerformed
         // TODO add your handling code here:
         int port = 12345;
-        try{
+        try {
             client.Connect_to_server("localhost", port);
-            JOptionPane.showMessageDialog(null,"Kết nối thành công");
+            JOptionPane.showMessageDialog(null, "Kết nối thành công");
             btKetnoi.setEnabled(false);
             btHuyKetNoi.setEnabled(true);
-            
+
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btKetnoiActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void btHuyKetNoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHuyKetNoiActionPerformed
-        // TODO add your handling code here:
-        client.Close_connect();
-        btKetnoi.setEnabled(true);
-        btHuyKetNoi.setEnabled(false);
+        try {
+            // TODO add your handling code here:
+            client.Close_connect();
+            btKetnoi.setEnabled(true);
+            btHuyKetNoi.setEnabled(false);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        
     }//GEN-LAST:event_btHuyKetNoiActionPerformed
+
+    private void btSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaActionPerformed
+        // TODO add your handling code here:
+        String maPhong = txtMaPhong.getText();
+        String tenKhachHang = txtTenKhachHang.getText();
+        String soLuongKhach = txtSoLuongKhach.getText();
+        String ngayNhanPhong = txtNgayNhanPhong.getText();
+        String loaiPhong = txtLoaiPhong.getText();
+        String thoiGianOLai = txtThoiGianOLai.getText();
+        String output = maPhong + " " + tenKhachHang + " " + soLuongKhach + " " + ngayNhanPhong + " " + loaiPhong + " " + thoiGianOLai;
+        clearTextArea();
+        String input;
+        try {
+            client.Output_to_server(output);
+            input = client.input_from_server();
+            JOptionPane.showMessageDialog(null, input);
+        } catch (IOException ex) {
+            Logger.getLogger(GIAODIENQUANLYKHACHSAN_CLIENT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btSuaActionPerformed
+
+    private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
+        try {
+            // TODO add your handling code here:
+            String maPhong = JOptionPane.showInputDialog("Nhập mã phòng cần xóa: ");
+            client.Output_to_server(maPhong);
+            String reply = client.input_from_server();
+            JOptionPane.showMessageDialog(null, reply);
+        } catch (IOException ex) {
+            Logger.getLogger(GIAODIENQUANLYKHACHSAN_CLIENT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btXoaActionPerformed
+
+    private void btTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimActionPerformed
+        try {
+            // TODO add your handling code here:
+            String maPhong = JOptionPane.showInputDialog("Nhập mã phòng cần tìm");
+            client.Output_to_server(maPhong);
+            String reply = client.input_from_server();
+            JOptionPane.showMessageDialog(null, reply);
+        } catch (IOException ex) {
+            Logger.getLogger(GIAODIENQUANLYKHACHSAN_CLIENT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btTimActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,7 +443,7 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btHuyKetNoi;
     private javax.swing.JButton btInDs;
@@ -391,9 +452,6 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
     private javax.swing.JButton btThem;
     private javax.swing.JButton btTim;
     private javax.swing.JButton btXoa;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

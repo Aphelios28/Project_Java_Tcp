@@ -24,6 +24,7 @@ public class TCPSERVER {
         serverSocket = new ServerSocket(port);
     }
     public void Connect_to_client() throws IOException{
+        
         socket = serverSocket.accept();
     }
     public void Close() throws IOException{

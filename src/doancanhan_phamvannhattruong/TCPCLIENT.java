@@ -34,7 +34,7 @@ public class TCPCLIENT {
         out_to_server.writeBytes(output + "\n");
         System.out.println("Da gui " + output + " cho server");
     }
-    public String input_from_server(String input) throws IOException{
+    public String input_from_server() throws IOException{
         BufferedReader in_from_server = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String data = in_from_server.readLine();
         return data;
