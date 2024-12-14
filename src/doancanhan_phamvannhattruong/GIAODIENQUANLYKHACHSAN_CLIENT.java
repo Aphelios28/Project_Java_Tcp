@@ -4,6 +4,10 @@
  */
 package doancanhan_phamvannhattruong;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,6 +21,7 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
      */
     DefaultTableModel model;
     DANHSACHPHONG ds;
+    TCPCLIENT client = new TCPCLIENT();
     public GIAODIENQUANLYKHACHSAN_CLIENT() {
         initComponents();
         mYInit();
@@ -53,6 +58,11 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
         btXoa = new javax.swing.JButton();
         btTim = new javax.swing.JButton();
         btInDs = new javax.swing.JButton();
+        btKetnoi = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        btHuyKetNoi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -178,33 +188,73 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
             }
         });
 
+        btKetnoi.setText("Kết nối với server");
+        btKetnoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btKetnoiActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("jButton3");
+
+        btHuyKetNoi.setText("Hủy kết nối đến server");
+        btHuyKetNoi.setActionCommand("");
+        btHuyKetNoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btHuyKetNoiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(315, 315, 315)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btThem)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btKetnoi)
+                                .addGap(24, 24, 24)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btHuyKetNoi)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                                .addComponent(btThem)
+                                .addGap(28, 28, 28)
+                                .addComponent(btSua)
+                                .addGap(58, 58, 58)
+                                .addComponent(btXoa)
+                                .addGap(47, 47, 47)
+                                .addComponent(btTim)
+                                .addGap(52, 52, 52)
+                                .addComponent(btInDs))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(btSua)
-                        .addGap(73, 73, 73)
-                        .addComponent(btXoa)
-                        .addGap(69, 69, 69)
-                        .addComponent(btTim)
-                        .addGap(52, 52, 52)
-                        .addComponent(btInDs)
-                        .addContainerGap(210, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(343, 343, 343)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1)
+                                    .addComponent(jButton2)
+                                    .addComponent(jButton3))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,17 +262,27 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btThem)
-                    .addComponent(btSua)
-                    .addComponent(btXoa)
-                    .addComponent(btTim)
-                    .addComponent(btInDs))
-                .addGap(27, 27, 27))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btThem)
+                            .addComponent(btSua)
+                            .addComponent(btXoa)
+                            .addComponent(btTim)
+                            .addComponent(btInDs)
+                            .addComponent(btKetnoi)
+                            .addComponent(btHuyKetNoi))
+                        .addGap(27, 27, 27))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -263,6 +323,31 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btInDsActionPerformed
 
+    private void btKetnoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btKetnoiActionPerformed
+        // TODO add your handling code here:
+        int port = 12345;
+        try{
+            client.Connect_to_server("localhost", port);
+            JOptionPane.showMessageDialog(null,"Kết nối thành công");
+            btKetnoi.setEnabled(false);
+            btHuyKetNoi.setEnabled(true);
+            
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btKetnoiActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btHuyKetNoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHuyKetNoiActionPerformed
+        // TODO add your handling code here:
+        client.Close_connect();
+        btKetnoi.setEnabled(true);
+        btHuyKetNoi.setEnabled(false);
+    }//GEN-LAST:event_btHuyKetNoiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -299,11 +384,16 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btHuyKetNoi;
     private javax.swing.JButton btInDs;
+    private javax.swing.JButton btKetnoi;
     private javax.swing.JButton btSua;
     private javax.swing.JButton btThem;
     private javax.swing.JButton btTim;
     private javax.swing.JButton btXoa;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
