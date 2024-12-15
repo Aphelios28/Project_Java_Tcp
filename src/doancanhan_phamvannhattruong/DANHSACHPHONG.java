@@ -19,7 +19,7 @@ import javax.print.attribute.standard.DateTimeAtCompleted;
  * @author ADMIN
  */
 public class DANHSACHPHONG {
-    ArrayList<PHONG> dsp = new ArrayList<PHONG>();
+    ArrayList<PHONG> dsp = new ArrayList<>();
     public ArrayList<PHONG> getDsp() {
         return dsp;
     }
@@ -76,6 +76,20 @@ public class DANHSACHPHONG {
         for (PHONG phong : dsp){
             if (phong.getMaPhong().equalsIgnoreCase(maPhong)){
                 dsp.remove(phong);
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean suaThongTinPhong(String maPhong, String tenKhachHang, String soLuongKhach, String ngayNhanPhong, String loaiPhong, String thoiGianOLaiDuKien){
+        for (PHONG phong : dsp){
+            if (phong.getMaPhong().equalsIgnoreCase(maPhong)){
+                phong.setMaPhong(maPhong);
+                phong.setTenKhachHang(tenKhachHang);
+                phong.setSoLuongKhach(Integer.parseInt(soLuongKhach));
+                phong.setNgayNhanPhong(chuyenChuoiThanhNgay(ngayNhanPhong));
+                phong.setLoaiPhong(loaiPhong);
+                phong.setThoiGianOLaiDuKien(Integer.parseInt(thoiGianOLaiDuKien));
                 return true;
             }
         }

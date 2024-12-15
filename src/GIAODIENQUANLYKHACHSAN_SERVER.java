@@ -24,7 +24,7 @@ public class GIAODIENQUANLYKHACHSAN_SERVER extends javax.swing.JFrame {
      */
     DefaultTableModel model;
     TCPSERVER server = new TCPSERVER();
-    DANHSACHPHONG ds;
+    DANHSACHPHONG danhSachPhong;
     public GIAODIENQUANLYKHACHSAN_SERVER() {
         initComponents();
         Init();
@@ -32,14 +32,14 @@ public class GIAODIENQUANLYKHACHSAN_SERVER extends javax.swing.JFrame {
 
     public void Init() {
         model = (DefaultTableModel) tbDanhSachPhong.getModel();
-        //tbDanhSachPhong.setModel(model);
-        ds = new DANHSACHPHONG();
+        tbDanhSachPhong.setModel(model);
+        danhSachPhong = new DANHSACHPHONG();
         docFile();
     }
 
     public void docFile() {
-        ds.docFile("DanhSachPhong.txt");
-        for (PHONG phong : ds.getDsp()) {
+        danhSachPhong.docFile("DanhSachPhong.txt");
+        for (PHONG phong : danhSachPhong.getDsp()) {
             Them1DongVaoTable(phong);
         }
     }
@@ -216,8 +216,18 @@ public class GIAODIENQUANLYKHACHSAN_SERVER extends javax.swing.JFrame {
         });
 
         btTim.setText("Tìm");
+        btTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTimActionPerformed(evt);
+            }
+        });
 
         btInBang.setText("In bảng ");
+        btInBang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInBangActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -281,7 +291,6 @@ public class GIAODIENQUANLYKHACHSAN_SERVER extends javax.swing.JFrame {
             // TODO add your handling code here:
             int port = 12345;
             server.ConnectServer(port);
-           
             JOptionPane.showMessageDialog(null, "Đã kết nối thành công");
             btKetNoiClient.setEnabled(false);
             btHuyKetNoi.setEnabled(true);
@@ -297,37 +306,33 @@ public class GIAODIENQUANLYKHACHSAN_SERVER extends javax.swing.JFrame {
         String response = "";
         String input = server.input_from_client();
         System.out.println("Input từ client: " + input);
-
         if (!input.trim().isEmpty()) {
             String[] data = input.split(" ");
-            
             if (data.length != 6) {
                 response += "Dữ liệu không đầy đủ, hãy kiểm tra lại định dạng";
                 server.output_to_server(response);
                 return;
             }
-
             String maPhong = data[0];
             String tenKhachHang = data[1];
             String soLuongKhach = data[2];
             String ngayNhanPhong = data[3];
             String loaiPhong = data[4];
             String thoiGianOLai = data[5];
-
             if (maPhong.trim().isEmpty() || tenKhachHang.trim().isEmpty() || soLuongKhach.trim().isEmpty() || ngayNhanPhong.trim().isEmpty() || loaiPhong.trim().isEmpty() || thoiGianOLai.trim().isEmpty()) {
                 response += "Dữ liệu còn bị trống, hãy nhập đầy đủ";
             } else {
                 try {
-                    Date ngay = ds.chuyenChuoiThanhNgay(ngayNhanPhong);
+                    Date ngay = danhSachPhong.chuyenChuoiThanhNgay(ngayNhanPhong);
                     PHONG phong = new PHONG(maPhong, tenKhachHang, Integer.parseInt(soLuongKhach), ngay, loaiPhong, Integer.parseInt(thoiGianOLai));
-                    System.out.println("Đối tượng PHONG đã được tạo: " + phong.toString());
+                    System.out.println("Doi tuong phong da duoc tao: " + phong.getMaPhong() + " " + phong.getTenKhachHang() 
+                            + " " + phong.getSoLuongKhach() + " " + phong.getNgayNhanPhong() + phong.getLoaiPhong() + " " + phong.getThoiGianOLaiDuKien());
 
-                    if (ds == null) {
+                    if (danhSachPhong == null) {
                         response += "Danh sách chưa được khởi tạo";
                     } else {
-                        ds.themVaoDanhSach(phong);
-                        response += "Đã thêm vào thành công";
-                        System.out.println("Danh sách sau khi thêm: " + ds.toString());
+                        danhSachPhong.themVaoDanhSach(phong);
+                        response += "Đã thêm vào thành công";      
                     }
                 } catch (Exception e) {
                     response += "Lỗi thêm vào danh sách: " + e.getMessage();
@@ -362,7 +367,7 @@ public class GIAODIENQUANLYKHACHSAN_SERVER extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             String maPhongCanXoa = server.input_from_client();
-            if (ds.xoaTheoMaPhong(maPhongCanXoa)){
+            if (danhSachPhong.xoaTheoMaPhong(maPhongCanXoa)){
                 JOptionPane.showMessageDialog(null, "Xóa thành công");
             } else {
                 JOptionPane.showMessageDialog(null, "Xóa không thành công");
@@ -373,9 +378,58 @@ public class GIAODIENQUANLYKHACHSAN_SERVER extends javax.swing.JFrame {
     }//GEN-LAST:event_btXoaActionPerformed
 
     private void btSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaActionPerformed
-        // TODO add your handling code here:
-        String input = 
+        try {
+            // TODO add your handling code here:
+            String response = "";
+            String input = server.input_from_client();
+            String[] data = input.split(" ");
+            txtMaPhong.setText(data[0]);
+            txtTenKhachHang.setText(data[1]);
+            txtNgayNhanPhong.setText(data[3]);
+            txtSoLuongKhach.setText(data[2]);
+            txtLoaiPhong.setText(data[4]);
+            txtThoiGianOLai.setText(data[5]);
+            JOptionPane.showMessageDialog(null, "Moi chinh sua thong tin");
+            if (danhSachPhong.suaThongTinPhong(txtMaPhong.getText(), txtTenKhachHang.getText(), txtSoLuongKhach.getText(), txtNgayNhanPhong.getText(), txtLoaiPhong.getText(), txtThoiGianOLai.getText())){
+                response += "Chinh sua thanh cong"; 
+            } else {
+                response += "Chinh sua khong thanh cong";
+            }
+            JOptionPane.showMessageDialog(null, response);
+            server.output_to_server(response);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        
     }//GEN-LAST:event_btSuaActionPerformed
+
+    private void btTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimActionPerformed
+        try {
+            String response = "";
+            // TODO add your handling code here:
+            String maPhong = server.input_from_client();
+            for (PHONG phong : danhSachPhong.getDsp()){
+                if (phong.getMaPhong().equalsIgnoreCase(maPhong)){
+                    String data = phong.getMaPhong() + ";" + phong.getTenKhachHang() + ";" + phong.getSoLuongKhach() + ";" + phong.getNgayNhanPhong() + ";" + phong.getLoaiPhong() + ";" + phong.getThoiGianOLaiDuKien();
+                    server.output_to_server(data);
+                    response += "Da tim thay";
+                    break;
+                }
+            }
+            JOptionPane.showMessageDialog(null, response);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(GIAODIENQUANLYKHACHSAN_SERVER.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btTimActionPerformed
+
+    private void btInBangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInBangActionPerformed
+        // TODO add your handling code here:
+        XoaBang();
+        for (PHONG phong : danhSachPhong.getDsp()) {
+            Them1DongVaoTable(phong);
+        }
+    }//GEN-LAST:event_btInBangActionPerformed
 
     /**
      * @param args the command line arguments

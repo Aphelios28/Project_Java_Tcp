@@ -164,6 +164,11 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
                 "Mã phòng", "Tên khách hàng", "Số lượng khách", "Ngày nhận phòng", "Loại phòng", "Thời gian ở lại"
             }
         ));
+        tbDanhSachPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDanhSachPhongMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbDanhSachPhong);
 
         btThem.setText("Thêm");
@@ -275,7 +280,7 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     public void mYInit() {
         model = (DefaultTableModel) tbDanhSachPhong.getModel();
-        //tbDanhSachPhong.setModel(model);
+        tbDanhSachPhong.setModel(model);
         ds = new DANHSACHPHONG();
         docFile();
 
@@ -380,7 +385,7 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
             input = client.input_from_server();
             JOptionPane.showMessageDialog(null, input);
         } catch (IOException ex) {
-            Logger.getLogger(GIAODIENQUANLYKHACHSAN_CLIENT.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btSuaActionPerformed
 
@@ -392,7 +397,7 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
             String reply = client.input_from_server();
             JOptionPane.showMessageDialog(null, reply);
         } catch (IOException ex) {
-            Logger.getLogger(GIAODIENQUANLYKHACHSAN_CLIENT.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btXoaActionPerformed
 
@@ -402,11 +407,31 @@ public class GIAODIENQUANLYKHACHSAN_CLIENT extends javax.swing.JFrame {
             String maPhong = JOptionPane.showInputDialog("Nhập mã phòng cần tìm");
             client.Output_to_server(maPhong);
             String reply = client.input_from_server();
-            JOptionPane.showMessageDialog(null, reply);
+            String[] data = reply.split(";");
+            txtMaPhong.setText(data[0]);
+            txtTenKhachHang.setText(data[1]);
+            txtSoLuongKhach.setText(data[2]);
+            txtNgayNhanPhong.setText(data[3]);
+            txtLoaiPhong.setText(data[4]);
+            txtThoiGianOLai.setText(data[5]);
+            JOptionPane.showMessageDialog(null, "Da tim thay thong tin phong");
         } catch (IOException ex) {
-            Logger.getLogger(GIAODIENQUANLYKHACHSAN_CLIENT.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btTimActionPerformed
+
+    private void tbDanhSachPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhSachPhongMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 1){
+            int i = tbDanhSachPhong.getSelectedRow();
+            txtMaPhong.setText(model.getValueAt(i, 0).toString());
+            txtTenKhachHang.setText(model.getValueAt(i, 1).toString());
+            txtSoLuongKhach.setText(model.getValueAt(i, 2).toString());
+            txtNgayNhanPhong.setText(model.getValueAt(i, 3).toString());
+            txtLoaiPhong.setText(model.getValueAt(i, 4).toString());
+            txtThoiGianOLai.setText(model.getValueAt(i, 5).toString());
+        }
+    }//GEN-LAST:event_tbDanhSachPhongMouseClicked
 
     /**
      * @param args the command line arguments
